@@ -18,9 +18,10 @@ jobs:
   deploy-master:
     docker:
       - image: circleci/node:10.16.3
-    working_directory: ~/doc-pusher/ui/support
+    working_directory: ~/doc-pusher
     steps:
       - checkout
+      - run: cd ~/doc-pusher/ui/support
       - restore_cache:
           keys:
             - node-proj-dep-{{ checksum "package.json" }}
