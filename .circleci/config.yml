@@ -21,7 +21,7 @@ jobs:
     working_directory: ~/doc-pusher/ui/support
     steps:
       - checkout:
-        path: ~/doc-pusher
+          path: ~/doc-pusher
       - restore_cache:
           keys:
             - node-proj-dep-{{ checksum "package.json" }}
