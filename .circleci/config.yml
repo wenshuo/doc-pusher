@@ -10,13 +10,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - doc-pusher-{{ .Branch }}-{{ checksum "/root/doc-pusher/frontends/new_horizon/yarn.lock" }}-{{checksum "/root/doc-pusher/frontends/new_horizon/support/storybook/yarn.lock"}}
+            - doc-pusher-{{ .Branch }}-{{ checksum "~/doc-pusher/frontends/new_horizon/yarn.lock" }}-{{checksum "~/doc-pusher/frontends/new_horizon/support/storybook/yarn.lock"}}
             - doc-pusher-{{ .Branch }}
       - run: yarn
       - save_cache:
           paths:
-            - /root/.cache/yarn
-          key: doc-pusher-{{ .Branch }}-{{ checksum "/root/doc-pusher/frontends/new_horizon/yarn.lock" }}-{{checksum "/root/doc-pusher/frontends/new_horizon/support/storybook/yarn.lock"}}
+            - ~/.cache/yarn
+          key: doc-pusher-{{ .Branch }}-{{ checksum "~/doc-pusher/frontends/new_horizon/yarn.lock" }}-{{checksum "~/doc-pusher/frontends/new_horizon/support/storybook/yarn.lock"}}
   deploy-master:
     docker:
       - image: circleci/node:10.16.3
@@ -28,14 +28,14 @@ jobs:
           path: ~/doc-pusher
       - restore_cache:
           keys:
-            - doc-pusher-{{ .Branch }}-{{ checksum "/root/doc-pusher/frontends/new_horizon/yarn.lock" }}-{{checksum "/root/doc-pusher/frontends/new_horizon/support/storybook/yarn.lock"}}
+            - doc-pusher-{{ .Branch }}-{{ checksum "~/doc-pusher/frontends/new_horizon/yarn.lock" }}-{{checksum "~/doc-pusher/frontends/new_horizon/support/storybook/yarn.lock"}}
             - doc-pusher-{{ .Branch }}
       - run: yarn
-      - run: cd /root/doc-pusher/frontends/new_horizon && yarn
+      - run: cd ~/doc-pusher/frontends/new_horizon && yarn
       - save_cache:
           paths:
-            - /root/.cache/yarn
-          key: doc-pusher-{{ .Branch }}-{{ checksum "/root/doc-pusher/frontends/new_horizon/yarn.lock" }}-{{checksum "/root/doc-pusher/frontends/new_horizon/support/storybook/yarn.lock"}}
+            - ~/.cache/yarn
+          key: doc-pusher-{{ .Branch }}-{{ checksum "~/doc-pusher/frontends/new_horizon/yarn.lock" }}-{{checksum "~/doc-pusher/frontends/new_horizon/support/storybook/yarn.lock"}}
       - run: npm run ci_release
 workflows:
   version: 2
