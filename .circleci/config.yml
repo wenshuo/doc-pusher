@@ -4,33 +4,38 @@ jobs:
     docker:
       - image: circleci/node:10.16.3
     working_directory: ~/doc-pusher
+    environment:
+      - PATH: /root/node/bin:/root/yarn/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
     steps:
       - checkout
       - restore_cache:
           keys:
-            - node-proj-dep-{{ checksum "package.json" }}
-            - node-proj-dep-
-      - run: npm install
+            - doc-pusher-{{ .Branch }}-{{ checksum "/root/frontends/new_horizon/yarn.lock" }}-{{checksum "/root/frontends/new_horizon/support/storybook/yarn.lock"}}
+            - doc-pusher-{{ .Branch }}
+      - run: yarn
       - save_cache:
           paths:
-            - node_modules
-          key: node-proj-dep-{{ checksum "package.json" }}
+            - /root/.cache/yarn
+          key: doc-pusher-{{ .Branch }}-{{ checksum "/root/frontends/new_horizon/yarn.lock" }}-{{checksum "/root/frontends/new_horizon/support/storybook/yarn.lock"}}
   deploy-master:
     docker:
       - image: circleci/node:10.16.3
-    working_directory: ~/doc-pusher/ui/support
+    working_directory: ~/doc-pusher/frontends/new_horizon/support/storybook
+    environment:
+      - PATH: /root/node/bin:/root/yarn/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
     steps:
       - checkout:
           path: ~/doc-pusher
       - restore_cache:
           keys:
-            - node-proj-dep-{{ checksum "package.json" }}
-            - node-proj-dep-
-      - run: npm install
+            - doc-pusher-{{ .Branch }}-{{ checksum "/root/frontends/new_horizon/yarn.lock" }}-{{checksum "/root/frontends/new_horizon/support/storybook/yarn.lock"}}
+            - doc-pusher-{{ .Branch }}
+      - run: yarn
+      - run: cd /root/doc-pusher/frontends/new_horizon && yarn
       - save_cache:
           paths:
-            - node_modules
-          key: node-proj-dep-{{ checksum "package.json" }}
+            - /root/.cache/yarn
+          key: doc-pusher-{{ .Branch }}-{{ checksum "/root/frontends/new_horizon/yarn.lock" }}-{{checksum "/root/frontends/new_horizon/support/storybook/yarn.lock"}}
       - run: npm run ci_release
 workflows:
   version: 2
