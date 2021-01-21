@@ -3,7 +3,7 @@ const git = require('octonode');
 const client = git.client(process.env.GIT_AUTH_TOKEN);
 
 const { execSync } = require('child_process');
-
+console.log(process.env);
 const output = execSync(`git diff --name-only ${process.env.CIRCLE_SHA1} HEAD`);
 console.log('diff from cmd');
 console.log(output.toString());
