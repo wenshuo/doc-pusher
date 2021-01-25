@@ -42,23 +42,31 @@ if (!canDeploy) {
   return console.log('No ui updates to release!');
 }
 
-const s3Client = s3.createClient({
-  s3Options: {
-    accessKeyId: process.env.STORYBOOK_UI_S3_KEY_ID,
-    secretAccessKey: process.env.STORYBOOK_UI_S3_ACCESS_KEY,
-    region: process.env.STORYBOOK_UI_S3_BUCKET_REGION
-  }
-});
+try {
+  const DOC_PATH = path.resolve(__dirname, process.env.STORYBOOK_UI_DOC_FOLDER);
+  execSync(`rm -rf ${DOC_PATH}`);
+  execSync('yarn build_pages');
 
-const request = s3Client.uploadDir({
-  localDir: path.resolve(__dirname, process.env.STORYBOOK_UI_DOC_FOLDER),
-  s3Params: {
-    Bucket: process.env.STORYBOOK_UI_S3_BUCKET,
-    Prefix: '/'
-  }
-});
+  const s3Client = s3.createClient({
+    s3Options: {
+      accessKeyId: process.env.STORYBOOK_UI_S3_KEY_ID,
+      secretAccessKey: process.env.STORYBOOK_UI_S3_ACCESS_KEY,
+      region: process.env.STORYBOOK_UI_S3_BUCKET_REGION
+    }
+  });
 
-emitterToPromise(request).then(
-  () => console.log('Storybook ui release completed.'),
-  (err) => console.log('Storybook ui release failed.', err);
-);
+  const request = s3Client.uploadDir({
+    localDir: path.resolve(__dirname, process.env.STORYBOOK_UI_DOC_FOLDER),
+    s3Params: {
+      Bucket: process.env.STORYBOOK_UI_S3_BUCKET,
+      Prefix: '/'
+    }
+  });
+
+  emitterToPromise(request).then(
+    () => console.log('Storybook ui release completed.'),
+    (err) => console.log('Storybook ui release failed.', err)
+  );
+} catch (err) {
+  console.log('Release failed!', err);
+}
