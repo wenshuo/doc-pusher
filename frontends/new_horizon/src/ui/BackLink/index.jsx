@@ -13,7 +13,7 @@ const BackLink = ({ to, label }) => (
 
 BackLink.propTypes = {
   to: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  label: PropTypes.string.isRequired
+  label: PropTypes.string
 };
 
 BackLink.defaultProps = {

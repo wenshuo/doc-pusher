@@ -44,9 +44,14 @@ if (!canDeploy) {
 
 try {
   const DOC_PATH = path.resolve(__dirname, process.env.STORYBOOK_UI_DOC_FOLDER);
+  console.log('Start releasing:')
+  console.log(`Removing: ${DOC_PATH}...`);
   execSync(`rm -rf ${DOC_PATH}`);
-  execSync('yarn build_pages');
-
+  console.log(`Removing: ${DOC_PATH} completed.`)
+  console.log('Building static pages...')
+  execSync('yarn build_pages --quiet');
+  console.log('Building static pages completed.');
+  console.log('Uploading files to S3...');
   const s3Client = s3.createClient({
     s3Options: {
       accessKeyId: process.env.STORYBOOK_UI_S3_KEY_ID,
@@ -58,8 +63,7 @@ try {
   const request = s3Client.uploadDir({
     localDir: path.resolve(__dirname, process.env.STORYBOOK_UI_DOC_FOLDER),
     s3Params: {
-      Bucket: process.env.STORYBOOK_UI_S3_BUCKET,
-      Prefix: '/'
+      Bucket: process.env.STORYBOOK_UI_S3_BUCKET
     }
   });
 
