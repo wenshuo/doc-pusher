@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo no test specified",
-    "ci_release": "node ./release.js"
+    "ci_release": "node ./release.js",
+    "build_pages": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "@storybook/source-loader": "^6.1.0"
   },
   "devDependencies": {
-    "react-styled-components": "^0.1.11"
+    "react-styled-components": "^0.1.11",
+    "s3": "^4.4.0"
   }
 }
