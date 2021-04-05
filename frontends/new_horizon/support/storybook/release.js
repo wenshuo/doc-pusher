@@ -16,8 +16,8 @@ const STORYBOOK_UI_PATH_TO_WATCH = 'frontends/new_horizon/src';
 
 const REQUIRED_ENV_VARS = [
   'CIRCLE_COMPARE_URL',
-  'STORYBOOK_UI_S3_KEY_ID',
-  'STORYBOOK_UI_S3_ACCESS_KEY'
+  'AWS_ACCESS_KEY_ID',
+  'AWS_SECRET_ACCESS_KEY'
 ];
 
 const errors = REQUIRED_ENV_VARS.filter(envVar => !process.env[envVar]);
