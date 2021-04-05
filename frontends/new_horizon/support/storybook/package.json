@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo no test specified",
     "ci_release": "node ./release.js",
-    "build_pages": "build-storybook"
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
