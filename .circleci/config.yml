@@ -48,7 +48,6 @@ workflows:
       - deploy-master:
           requires:
             - build-job
-          context: Production
           filters:
             branches:
               only: main
