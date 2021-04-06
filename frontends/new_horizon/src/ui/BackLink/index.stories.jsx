@@ -6,4 +6,4 @@ import BackLink from '.';
 
 const stories = storiesOf('Navigation.BackLink', module);
 
-stories.add('Basic', () => <BackLink label={text('label', 'Back')} to={text('to', '/')} />);
+stories.add('Basic', () => <BackLink label={text('label', 'Back home')} to={text('to', '/')} />);
