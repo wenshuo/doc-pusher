@@ -7,7 +7,8 @@ jobs:
     environment:
       - PATH: /root/node/bin:/root/yarn/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
     steps:
-      - checkout
+      - checkout:
+          path: ~/doc-pusher
       - restore_cache:
           keys:
             - doc-pusher-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{checksum "support/storybook/yarn.lock"}}
