@@ -16,7 +16,7 @@ BackLink.propTypes = {
 
 BackLink.defaultProps = {
   to: '/',
-  label: 'Back Home'
+  label: 'Back'
 };
 
 export default BackLink;
