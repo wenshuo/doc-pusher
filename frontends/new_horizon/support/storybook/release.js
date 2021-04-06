@@ -6,6 +6,9 @@ function emitterToPromise(emitter) {
   return new Promise((resolve, reject) => {
     emitter.on('end', data => resolve(data));
     emitter.on('error', err => reject(err));
+    emitter.on('fileUploadEnd', (localFilePath, s3Key) => {
+      console.log(`finished upload ${localFilePath}, ${s3Key}`);
+    });
   });
 }
 
@@ -62,8 +65,10 @@ try {
 
   const request = s3Client.uploadDir({
     localDir: DOC_PATH,
+    deleteRemoved: true, // doesn't support versioning at this moment
     s3Params: {
-      Bucket: 'bb-ui-storybook'
+      Bucket: 'bb-ui-storybook',
+      Prefix: '/'
     }
   });
 
