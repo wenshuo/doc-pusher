@@ -1,6 +1,7 @@
 const { execSync } = require('child_process');
 const s3 = require('s3');
 const path = require('path');
+const fs = require('fs');
 
 function emitterToPromise(emitter) {
   return new Promise((resolve, reject) => {
@@ -78,7 +79,7 @@ try {
   );
 
   console.log('files', fs.readdirSync(DOC_PATH));
-  
+
 } catch (err) {
   console.log('Release failed!', err);
 }
