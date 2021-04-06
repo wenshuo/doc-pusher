@@ -76,6 +76,9 @@ try {
     () => console.log('Storybook ui release completed.'),
     (err) => console.log('Storybook ui release failed.', err)
   );
+
+  console.log('files', fs.readdirSync(DOC_PATH));
+  
 } catch (err) {
   console.log('Release failed!', err);
 }
