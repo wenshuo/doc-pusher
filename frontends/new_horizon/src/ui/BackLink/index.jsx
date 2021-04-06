@@ -6,7 +6,7 @@ import styles from './BackLink.module.scss';
 const BackLink = ({ to, label }) => (
   <a href={to} className={styles.BackLink}>
     {label}
-  </Link>
+  </a>
 );
 
 BackLink.propTypes = {
