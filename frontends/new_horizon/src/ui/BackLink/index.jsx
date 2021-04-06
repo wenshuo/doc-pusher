@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import styles from './BackLink.module.scss';
 
 const BackLink = ({ to, label }) => (
-  <Link to={to} className={styles.BackLink}>
-    <Icon className={styles.icon} name="bb-left-arrow" />
+  <a href={to} className={styles.BackLink}>
     {label}
   </Link>
 );
