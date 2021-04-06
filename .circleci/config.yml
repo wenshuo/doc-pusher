@@ -3,12 +3,11 @@ jobs:
   deploy-master:
     docker:
       - image: circleci/node:10.16.3
-    working_directory: /root/doc-pusher/frontends/new_horizon
+    working_directory: ~/doc-pusher/frontends/new_horizon
     environment:
       - PATH: /root/node/bin:/root/yarn/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
     steps:
-      - checkout:
-          path: /root/doc-pusher
+      - checkout
       - restore_cache:
           keys:
             - doc-pusher-{{ .Branch }}-{{ checksum "yarn.lock" }}-{{checksum "support/storybook/yarn.lock"}}
