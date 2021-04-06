@@ -68,8 +68,7 @@ try {
     localDir: DOC_PATH,
     deleteRemoved: true, // doesn't support versioning at this moment
     s3Params: {
-      Bucket: 'bb-ui-storybook',
-      Prefix: '/'
+      Bucket: 'bb-ui-storybook'
     }
   });
 
