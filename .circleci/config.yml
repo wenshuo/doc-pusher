@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   deploy-master:
     docker:
@@ -6,6 +6,7 @@ jobs:
     working_directory: ~/doc-pusher/frontends/new_horizon
     environment:
       - PATH: /root/node/bin:/root/yarn/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
+      - CIRCLE_COMPARE_URL: << pipeline.project.git_url >>/compare/<< pipeline.git.base_revision >>...<<pipeline.git.revision>>
     steps:
       - checkout:
           path: ~/doc-pusher
