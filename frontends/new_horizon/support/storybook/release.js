@@ -37,6 +37,8 @@ if (!diffCommits.includes('...')) {
   return console.log('CIRCLE_COMPARE_URL is in wrong format, nothing to release!');
 }
 
+console.log('=========================', CIRCLE_COMPARE_URL);
+
 const filesChanged = execSync(`git diff --name-only ${diffCommits}`).toString().split('\n');
 console.log('filesChanged: ', filesChanged);
 
